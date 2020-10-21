@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-18.04
     if: startsWith(github.event.client_payload.ref, 'refs/tags/v')
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Parse interscript version
         env:
           INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
@@ -19,8 +19,8 @@ jobs:
           echo "${{env.INTERSCRIPT_VERSION}}"
       - name: Push commit and tag
         run: |
-          git config --global user.name "interscript-ci"
-          git config --global user.email "interscript-ci@users.noreply.github.com"
+          git config --global user.name "phuonghuynh"
+          git config --global user.email "phuonghuynh@users.noreply.github.com"
           git tag v${INTERSCRIPT_VERSION}
-          git push origin HEAD:${GITHUB_REF} --tags
+          git push origin --tags
 

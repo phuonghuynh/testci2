@@ -17,10 +17,24 @@ jobs:
           echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
           echo "${{env.INTERSCRIPT_TAG}}"
           echo "${{env.INTERSCRIPT_VERSION}}"
-      - name: Push commit and tag
-        run: |
-          git config --global user.name "phuonghuynh"
-          git config --global user.email "phuonghuynh@users.noreply.github.com"
-          git tag v${INTERSCRIPT_VERSION}
-          git push origin --tags
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${INTERSCRIPT_VERSION}
+          release_name: Release v${INTERSCRIPT_VERSION}
+#          body: |
+#            Changes in this Release
+#            - First Change
+#            - Second Change
+          draft: false
+          prerelease: false
+#      - name: Push commit and tag
+#        run: |
+#          git config --global user.name "phuonghuynh"
+#          git config --global user.email "phuonghuynh@users.noreply.github.com"
+#          git tag v${INTERSCRIPT_VERSION}
+#          git push origin --tags
 

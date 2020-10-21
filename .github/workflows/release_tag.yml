@@ -21,9 +21,6 @@ jobs:
           echo "${{env.INTERSCRIPT_VERSION}}"
       - name: Push commit and tag
         run: |
-          echo "${{env.INTERSCRIPT_VERSION}}" > INTERSCRIPT_VERSION
-          git add .
-          git commit "Update INTERSCRIPT_VERSION"
           git tag v${INTERSCRIPT_VERSION}
           git push --follow-tags
 

@@ -21,17 +21,19 @@ jobs:
         INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
       run: |
         echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.6'
-    - name: Install bundler
-      run: |
-        gem install bundler
-    - name: Update version
-      run: |
-        bundle remove interscript
-        bundle add interscript -v ${INTERSCRIPT_VERSION}
-        bundle install --deployment
+#    - uses: actions/setup-ruby@v1
+#      with:
+#        ruby-version: '2.6'
+#    - name: Install bundler
+#      run: |
+#        gem install bundler
+#    - name: Update version
+#      run: |
+#        bundle remove interscript
+#        bundle add interscript -v ${INTERSCRIPT_VERSION}
+#        bundle install --deployment
+    - name: Dummy test file
+      run: echo "dummy" >> Gemfile
     - name: Push commit and tag
       run: |
         git add Gemfile

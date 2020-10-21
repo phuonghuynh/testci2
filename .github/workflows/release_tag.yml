@@ -2,7 +2,7 @@ name: release-tag
 
 on:
   repository_dispatch:
-    types: [ interscript/interscript ]
+    types: [ phuonghuynh/testci3 ]
 
 jobs:
   push-tag:

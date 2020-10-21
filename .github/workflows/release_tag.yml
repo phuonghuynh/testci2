@@ -32,11 +32,13 @@ jobs:
 #          draft: false
 #          prerelease: false
       - name: Push commit and tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
-          git config --global user.name "phuonghuynh"
-          git config --global user.email "phuonghuynh@users.noreply.github.com"
           git tag v${INTERSCRIPT_VERSION}
-          git push origin --tags
-
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_TOKEN }}
+          branch: ${{ github.ref }}
+          tags: true

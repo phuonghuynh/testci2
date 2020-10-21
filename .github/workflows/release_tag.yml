@@ -10,6 +10,8 @@ jobs:
     if: startsWith(github.event.client_payload.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MY_TOKEN }}
       - name: Parse interscript version
         env:
           INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
@@ -36,9 +38,10 @@ jobs:
 #          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
           git tag v${INTERSCRIPT_VERSION}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.MY_TOKEN }}
-          branch: ${{ github.ref }}
-          tags: true
+          git push origin --tags
+#      - name: Push changes
+#        uses: ad-m/github-push-action@master
+#        with:
+#          github_token: ${{ secrets.MY_TOKEN }}
+#          branch: ${{ github.ref }}
+#          tags: true

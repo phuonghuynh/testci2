@@ -10,17 +10,51 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#      - name: Use Ruby
-#        uses: actions/setup-ruby@v1
-#        with:
-#          ruby-version: '2.6'
-#          architecture: 'x64'
-#      - name: Update gems
-#        run: |
-#          gem install bundler
-#          bundle install --jobs 4 --retry 3
-      - name: Publish to AWS
+      - name: Use Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+          architecture: 'x64'
+#            run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Parse interscript version
         env:
-          RUBYGEMS_API_KEY: ${{secrets.INTERSCRIPT_RUBYGEMS_API_KEY}}
+          INTERSCRIPT_TAG: ${GITHUB_REF#refs/*/}
         run: |
-          echo "TODO https://docs.aws.amazon.com/lambda/latest/dg/ruby-package.html"
+          echo "$INTERSCRIPT_TAG"
+          echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
+          echo "$INTERSCRIPT_VERSION"
+
+      - name: pull the gem
+        uses: actions/checkout@v2
+        with:
+          repository: 'interscript/interscript-api'
+          path: 'git'
+      - name: Build the gem
+        working-directory: git
+        env:
+          INTERSCRIPT_VERSION: ${{env.INTERSCRIPT_VERSION}}
+        run: |
+          gem install bundler
+          bundle config set path "./vendor/bundle
+          bundle install --without=development --jobs 4 --retry 3
+
+
+
+
+#      rm -Rf ${local.lambda_src}
+#      rm -Rf ${local.lambda_src_zip}
+#
+#      echo "update git submodules from ROOT"
+#      cd ..
+#      git submodule update --init --recursive
+#      cd -
+#
+#      cd src-api
+#      rm -Rf "./vendor"
+#      bundle config set path "./vendor/bundle"
+#      bundle install --without=development
+#      cd -
+#
+#      echo "copy lambda resouces for uploading"
+#      mkdir -p ${local.lambda_src}
+#      cp -Rf src-api/vendor src-api/lib ${local.lambda_src}

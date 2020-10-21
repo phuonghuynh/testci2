@@ -14,13 +14,13 @@ jobs:
         env:
           INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
         run: |
-          git config --global user.name "interscript-ci"
-          git config --global user.email "interscript-ci@users.noreply.github.com"
           echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
           echo "${{env.INTERSCRIPT_TAG}}"
           echo "${{env.INTERSCRIPT_VERSION}}"
       - name: Push commit and tag
         run: |
+          git config --global user.name "interscript-ci"
+          git config --global user.email "interscript-ci@users.noreply.github.com"
           git tag v${INTERSCRIPT_VERSION}
           git push origin HEAD:${GITHUB_REF} --tags
 

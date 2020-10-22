@@ -16,9 +16,10 @@ jobs:
         env:
           INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
         run: |
-          echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
-          echo "${{env.INTERSCRIPT_TAG}}"
-          echo "${{env.INTERSCRIPT_VERSION}}"
+          echo "${INTERSCRIPT_TAG}"
+          echo "${INTERSCRIPT_VERSION}"
+          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_VERSION}" >> $GITHUB_ENV
+
 #      - name: Create Release
 #        id: create_release
 #        uses: actions/create-release@v1

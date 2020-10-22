@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: debug
-        run: |
-          echo ${{env.GITHUB_REF}}
-          echo ${GITHUB_REF}
+#      - name: debug
+#        run: |
+#          echo ${{env.GITHUB_REF}}
+#          echo ${GITHUB_REF}
       - name: Use Ruby
         uses: actions/setup-ruby@v1
         with:
@@ -24,9 +24,10 @@ jobs:
         env:
           INTERSCRIPT_TAG: ${GITHUB_REF#refs/*/}
         run: |
+          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_TAG#*/v}" >> $GITHUB_ENV
           echo "${INTERSCRIPT_TAG}"
-          echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
-          echo "$INTERSCRIPT_VERSION"
+          echo "${INTERSCRIPT_VERSION}"
+      #          echo "::set-env name=INTERSCRIPT_VERSION::${INTERSCRIPT_TAG#*/v}"
 
       - name: pull the gem
         uses: actions/checkout@v2

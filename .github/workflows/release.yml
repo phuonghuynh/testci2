@@ -41,7 +41,7 @@ jobs:
         run: |
           echo ${INTERSCRIPT_VERSION}
           gem install bundler
-          bundle config set path "./vendor/bundle
+          bundle config set path "./vendor/bundle"
           bundle install --without=development --jobs 4 --retry 3
 
 

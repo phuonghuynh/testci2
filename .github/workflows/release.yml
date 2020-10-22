@@ -37,12 +37,13 @@ jobs:
           gem install bundler
           bundle config set path "./vendor/bundle"
           bundle install --without=development --jobs 4 --retry 3
-          zip --junk-paths ${AWS_LAMBDA}/src-api.zip vendor lib
+          ls -all
+          zip -r ${AWS_LAMBDA}/src-api.zip vendor lib
       - name: Build lambda layer
         working-directory: .github/docker
         run: |
           bash build.sh
-          zip --junk-paths ${AWS_LAMBDA}/layer.zip libs
+          zip -r ${AWS_LAMBDA}/lambda-layer.zip libs
       - name: Debug
         working-directory: ${AWS_LAMBDA}
         run: ls -all

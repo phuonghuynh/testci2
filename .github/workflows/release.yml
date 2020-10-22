@@ -25,7 +25,7 @@ jobs:
         with:
           repository: 'interscript/interscript-api'
           path: 'git'
-          ref: "feature/listen-for-gem-release"
+          ref: "dev"
       - name: Build the gem
         working-directory: git
         run: |

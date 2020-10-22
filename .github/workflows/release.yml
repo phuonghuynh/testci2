@@ -26,7 +26,8 @@ jobs:
 
       - name: Prepare for lambda upload
         run: |
-          AWS_LAMBDA="$(pwd)/../AWS_LAMBDA"
+          echo ${GITHUB_WORKSPACE}
+          AWS_LAMBDA="${GITHUB_WORKSPACE}/AWS_LAMBDA"
           echo "AWS_LAMBDA=${AWS_LAMBDA}" >> ${GITHUB_ENV}
           mkdir -p "${AWS_LAMBDA}"
 
@@ -36,8 +37,6 @@ jobs:
           gem install bundler
           bundle config set path "./vendor/bundle"
           bundle install --without=development --jobs 4 --retry 3
-          mkdir -p "${AWS_LAMBDA}/src-api"
-          cp -Rf vendor lib "${AWS_LAMBDA}/src-api"
           zip --junk-paths ${AWS_LAMBDA}/src-api.zip vendor lib
       - name: Build lambda layer
         working-directory: .github/docker

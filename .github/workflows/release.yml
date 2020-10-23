@@ -15,14 +15,11 @@ jobs:
         with:
           ruby-version: '2.6'
           architecture: 'x64'
-      - name: Parse interscript version
-        run: echo "INTERSCRIPT_VERSION=${GITHUB_REF#refs/*/v}" >> ${GITHUB_ENV}
-      - name: pull the gem
-        uses: actions/checkout@v2
-        with:
-          repository: 'interscript/interscript-api'
-          path: 'git'
-          ref: "dev"
+
+      - name: Prepare env-vars
+        run: |
+          echo "INTERSCRIPT_VERSION=${GITHUB_REF#refs/*/v}" >> ${GITHUB_ENV}
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> ${GITHUB_ENV}
 
       - name: Prepare for lambda upload
         run: |
@@ -31,6 +28,12 @@ jobs:
           echo "AWS_LAMBDA=${AWS_LAMBDA}" >> ${GITHUB_ENV}
           mkdir -p "${AWS_LAMBDA}"
 
+      - name: Pull the gem
+        uses: actions/checkout@v2
+        with:
+          repository: 'interscript/interscript-api'
+          path: 'git'
+          ref: "dev"
       - name: Build the gem
         working-directory: git
         run: |

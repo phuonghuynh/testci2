@@ -55,8 +55,8 @@ jobs:
 #        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ${AWS_LAMBDA}/src-api.zip
-            ${AWS_LAMBDA}/lambda-layer.zip
+            ${{env.AWS_LAMBDA}}/src-api.zip
+            ${{env.AWS_LAMBDA}}/lambda-layer.zip
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

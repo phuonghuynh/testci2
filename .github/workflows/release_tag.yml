@@ -19,8 +19,6 @@ jobs:
           echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
           echo "GITHUB_PUSH_TOKEN=${{ secrets.MY_TOKEN }}" >> $GITHUB_ENV
-          git config --global user.name "interscript-ci"
-          git config --global user.email "interscript-ci@users.noreply.github.com"
 
       - name: debug
         run: |

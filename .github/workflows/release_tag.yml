@@ -28,8 +28,9 @@ jobs:
 
       - name: Create API Release
         uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${GITHUB_PUSH_TOKEN}
+        env:
+          ## must use this token to trigger release workflow
+          GITHUB_TOKEN: ${GITHUB_PUSH_TOKEN}
         with:
           tag_name: v${{env.INTERSCRIPT_VERSION}}
           release_name: Release v${{env.INTERSCRIPT_VERSION}}

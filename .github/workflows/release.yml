@@ -24,8 +24,8 @@ jobs:
       - name: Prepare lambda upload
         run: |
           mkdir -p "${AWS_LAMBDA}"
-          echo "AWSL_SRC_ZIP=${AWS_LAMBDA}/aws-src.zip" >> ${GITHUB_ENV}
-          echo "AWSL_LAYER_ZIP=${AWS_LAMBDA}/aws-layer.zip" >> ${GITHUB_ENV}
+          echo "AWSL_SRC_ZIP=${AWS_LAMBDA}/aws-lambda-src.zip" >> ${GITHUB_ENV}
+          echo "AWSL_LAYER_ZIP=${AWS_LAMBDA}/aws-lambda-layer.zip" >> ${GITHUB_ENV}
 
       - name: Pull the gem
         uses: actions/checkout@v2

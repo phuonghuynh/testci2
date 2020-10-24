@@ -19,6 +19,8 @@ jobs:
           echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
           echo "GITHUB_PUSH_TOKEN=${{ secrets.MY_TOKEN }}" >> $GITHUB_ENV
+          git config --global user.name "interscript-ci"
+          git config --global user.email "interscript-ci@users.noreply.github.com"
 
       - name: debug
         run: |
@@ -31,7 +33,7 @@ jobs:
         with:
           tag_name: v${INTERSCRIPT_VERSION}
           release_name: Release v${INTERSCRIPT_VERSION}
-          body: [CI] Auto release API v${INTERSCRIPT_VERSION}
+          body: Auto release API v${INTERSCRIPT_VERSION} by @interscript-ci
           draft: false
           prerelease: false
 #      - name: Push commit and tag

@@ -52,6 +52,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          draft: false
+          prerelease: false
+          name: Release v${INTERSCRIPT_VERSION}
           files: |
             ${{env.AWSL_SRC_ZIP}}
             ${{env.AWSL_LAYER_ZIP}}

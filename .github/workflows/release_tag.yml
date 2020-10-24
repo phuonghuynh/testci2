@@ -13,10 +13,10 @@ jobs:
         with:
           token: ${{ secrets.MY_TOKEN }}
       - name: Parse interscript version
-#        env:
-#          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
+        env:
+          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
         run: |
-          echo "INTERSCRIPT_VERSION=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
+          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_TAG}" >> $GITHUB_ENV
 
 #      - name: Create Release
 #        id: create_release

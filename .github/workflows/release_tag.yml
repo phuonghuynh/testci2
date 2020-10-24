@@ -13,10 +13,15 @@ jobs:
         with:
           token: ${{ secrets.MY_TOKEN }}
       - name: Parse interscript version
-        env:
-          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
+#        env:
+#          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
         run: |
-          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_TAG}" >> $GITHUB_ENV
+          REF="${{ github.event.client_payload.ref }}"
+          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_TAG#refs/*/v}" >> $GITHUB_ENV
+
+      - name: debug
+        run: |
+          echo ${INTERSCRIPT_VERSION}
 
 #      - name: Create Release
 #        id: create_release
@@ -32,12 +37,10 @@ jobs:
 ##            - Second Change
 #          draft: false
 #          prerelease: false
-      - name: Push commit and tag
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-        run: |
-          git tag v${INTERSCRIPT_VERSION}
-          git push origin --tags
+#      - name: Push commit and tag
+#        run: |
+#          git tag v${INTERSCRIPT_VERSION}
+#          git push origin --tags
 #      - name: Push changes
 #        uses: ad-m/github-push-action@master
 #        with:

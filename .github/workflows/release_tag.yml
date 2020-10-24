@@ -17,7 +17,7 @@ jobs:
 #          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
         run: |
           REF="${{ github.event.client_payload.ref }}"
-          echo "INTERSCRIPT_VERSION=${INTERSCRIPT_TAG#refs/*/v}" >> $GITHUB_ENV
+          echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
 
       - name: debug
         run: |

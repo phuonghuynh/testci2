@@ -10,33 +10,30 @@ jobs:
     if: startsWith(github.event.client_payload.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.MY_TOKEN }}
-      - name: Parse interscript version
-#        env:
-#          INTERSCRIPT_TAG: ${{ github.event.client_payload.ref }}
+#        with:
+#          token: ${{ secrets.MY_TOKEN }}
+
+      - name: Setup env-vars
         run: |
           REF="${{ github.event.client_payload.ref }}"
           echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+          echo "GITHUB_PUSH_TOKEN=${{ secrets.MY_TOKEN }}" >> $GITHUB_ENV
 
       - name: debug
         run: |
           echo ${INTERSCRIPT_VERSION}
 
-#      - name: Create Release
-#        id: create_release
-#        uses: actions/create-release@v1
+      - name: Create API Release
+        uses: actions/create-release@v1
 #        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#        with:
-#          tag_name: v${INTERSCRIPT_VERSION}
-#          release_name: Release v${INTERSCRIPT_VERSION}
-##          body: |
-##            Changes in this Release
-##            - First Change
-##            - Second Change
-#          draft: false
-#          prerelease: false
+#          GITHUB_TOKEN: ${GITHUB_PUSH_TOKEN}
+        with:
+          tag_name: v${INTERSCRIPT_VERSION}
+          release_name: Release v${INTERSCRIPT_VERSION}
+          body: [CI] Auto release API v${INTERSCRIPT_VERSION}
+          draft: false
+          prerelease: false
 #      - name: Push commit and tag
 #        run: |
 #          git tag v${INTERSCRIPT_VERSION}

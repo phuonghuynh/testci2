@@ -5,6 +5,11 @@ on:
     tags:
       - 'v*'
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  AWS_LAMBDA: ${GITHUB_WORKSPACE}/AWS_LAMBDA
+  INTERSCRIPT_VERSION: ${GITHUB_REF#refs/*/v}
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -16,11 +21,15 @@ jobs:
           ruby-version: '2.7'
           architecture: 'x64'
 
-      - name: Prepare env-vars
+#      - name: Prepare env-vars
+#        run: |
+#          echo "INTERSCRIPT_VERSION=${GITHUB_REF#refs/*/v}" >> ${GITHUB_ENV}
+#          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> ${GITHUB_ENV}
+#          echo "AWS_LAMBDA=${GITHUB_WORKSPACE}/AWS_LAMBDA" >> ${GITHUB_ENV}
+      - name: debug
         run: |
-          echo "INTERSCRIPT_VERSION=${GITHUB_REF#refs/*/v}" >> ${GITHUB_ENV}
-          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> ${GITHUB_ENV}
-          echo "AWS_LAMBDA=${GITHUB_WORKSPACE}/AWS_LAMBDA" >> ${GITHUB_ENV}
+          echo "${INTERSCRIPT_VERSION}"
+          echo "${AWS_LAMBDA}"
       - name: Prepare lambda upload
         run: |
           mkdir -p "${AWS_LAMBDA}"

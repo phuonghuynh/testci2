@@ -7,8 +7,6 @@ on:
 env:
   GITHUB_PUSH_TOKEN: ${{ secrets.MY_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  REF: "${{ github.event.client_payload.ref }}"
-  INTERSCRIPT_VERSION: "${REF#refs/*/v}"
 
 jobs:
   push-tag:
@@ -19,10 +17,10 @@ jobs:
 #        with:
 #          token: ${{ secrets.MY_TOKEN }}
 
-#      - name: Setup env-vars
-#        run: |
-#          REF="${{ github.event.client_payload.ref }}"
-#          echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
+      - name: Setup env-vars
+        run: |
+          REF="${{ github.event.client_payload.ref }}"
+          echo "INTERSCRIPT_VERSION=${REF#refs/*/v}" >> $GITHUB_ENV
 
       - name: debug
         run: |

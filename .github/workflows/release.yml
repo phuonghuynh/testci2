@@ -32,7 +32,6 @@ jobs:
         with:
           repository: 'interscript/interscript-api'
           path: 'git'
-          ref: "dev"
       - name: Build lambda source
         working-directory: git
         run: |

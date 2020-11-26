@@ -44,4 +44,4 @@ jobs:
           token: ${{ env.GITHUB_PUSH_TOKEN }}
           repository: phuonghuynh/testci3
           event-type: ${{ github.repository }}
-          client-payload: '{ "workflow": "terraform" }'
+          client-payload: '{ "workflow": "terraform", "interscript_version": "${{env.INTERSCRIPT_VERSION}}" }'
